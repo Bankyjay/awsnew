@@ -23,7 +23,7 @@ jobs:
       - image: circleci/node.13.8.0
     
     steps:
-      - chekout
+      - checkout
       - run:
           name: "we ouchea"
           command: "echo Hello"
