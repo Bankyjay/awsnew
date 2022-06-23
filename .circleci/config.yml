@@ -14,19 +14,17 @@ jobs:
     steps:
       - run:
           command: echo "HELLO WORLD!" > output.txt
-          command: sudo mkdir /tmp/workspace
 
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: ~/
           paths:
-            - target/output.txt
-            - build/*
+            - output.txt
   print_output_file:
     docker:
       - image: alpine:latest
     steps: 
       - attach_workspace:
-          at: /tmp/workspace 
+          at: ~/ 
       - run:
           command: cat output.txt
 
@@ -39,3 +37,5 @@ workflows:
       - say-hello
       - save_hello_world_output
       - print_output_file
+      requires:
+        -save_hello_world_output
