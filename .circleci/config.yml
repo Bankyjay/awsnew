@@ -13,7 +13,8 @@ jobs:
       - image: alpine:latest
     steps:
       - run:
-          command: echo "HELLO WORLD!" > output.txt 
+          command: echo "HELLO WORLD!" > output.txt
+          mkdir /tmp/workspace
 
       - persist_to_workspace:
           root: /tmp/workspace
@@ -27,7 +28,7 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace 
       - run:
-          command: cat "output.txt"  
+          command: cat output.txt
 
 
 # Invoke jobs via workflows
