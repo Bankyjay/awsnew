@@ -14,7 +14,7 @@ jobs:
     steps:
       - run:
           command: echo "HELLO WORLD!" > output.txt
-          mkdir /tmp/workspace
+          command: sudo mkdir /tmp/workspace
 
       - persist_to_workspace:
           root: /tmp/workspace
