@@ -1,6 +1,6 @@
 version: 2.1
 
-obs:
+jobs:
   say-hello:  
     docker:
       - image: cimg/base:stable
