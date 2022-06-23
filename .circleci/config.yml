@@ -13,21 +13,21 @@ jobs:
       - image: alpine:latest
     steps:
       - run:
-        command: echo "HELLO WORLD!" > output.txt 
+          command: echo "HELLO WORLD!" > output.txt 
 
       - persist_to_workspace:
-        root: /tmp/workspace
-        paths:
-          - target/output.txt
-          - build/*
+          root: /tmp/workspace
+          paths:
+            - target/output.txt
+            - build/*
   print_output_file:
     docker:
       - image: alpine:latest
     steps: 
       - attach_workspace:
-        at: /tmp/workspace 
+          at: /tmp/workspace 
       - run:
-        command: cat "output.txt"  
+          command: cat "output.txt"  
 
 
 # Invoke jobs via workflows
