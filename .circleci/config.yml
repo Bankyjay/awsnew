@@ -1,9 +1,8 @@
 version: 2.1
-
 jobs:
   myjob1:
       docker: 
-        - image: circleci/aws-cli@2.0.3
+        - image: alpine:latest
       steps:
         - checkout 
         - run: echo "hello world" 
