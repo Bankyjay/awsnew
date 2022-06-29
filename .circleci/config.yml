@@ -1,28 +1,29 @@
 version: 2.1
-
+orbs:
+  
 jobs:
-  save_hello_world_output:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run: echo "HELLO WORLD!" > ~/output.txt
-
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
-  print_output_file:
-    docker:
-      - image: alpine:latest
-    steps: 
-      - attach_workspace:
-          at: ~/ 
-      - run: cat ~/output.txt
-
+  myjob1:
+      docker: 
+        - image: circleci/aws-cli@2.0.3
+      steps:
+        - checkout 
+        - run: echo "hello world" 
+  
+  create_infrastructure: 
+      docker:
+        - image: amazon/aws-cli
+      steps:
+        - checkout
+        - run:
+            name: Create Cloudformation Stack
+            command: |
+              aws cloudformation deploy \
+                --template-file template.yml \
+                --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+                --region us-east-1
 workflows:
-  my_workflows:
+  myWorkflow:
     jobs:
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      - myjob1
+      - create_infrastructure
+  
